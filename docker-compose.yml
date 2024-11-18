@@ -8,25 +8,41 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/todoapp
+      # - MONGO_URI=mongodb://mongodb:27017/todoapp
+      - POSTGRES_URL=postgresql://postgres:password@postgresdb:5432/todos
       - FLASK_ENV=development
       - FLASK_APP=app.py
     volumes:
       - ./backend:/app
     depends_on:
-      - mongodb
+      # - mongodb
+      - postgresdb
+    entrypoint: ["./wait-for-it.sh", "postgresdb:5432", "--", "flask", "run", "--host=0.0.0.0"]
 
-  mongodb:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    environment:
-      MONGO_INITDB_DATABASE: todoapp
+  # mongodb:
+  #   image: mongo:latest
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongodb_data:/data/db
+  #   environment:
+  #     MONGO_INITDB_DATABASE: todoapp
 
+  postgresdb:
+      image: postgres:13
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+        - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
+      environment:
+        - POSTGRES_DB=todos
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+      ports:
+        - "5432:5432"
+  
 volumes:
-  mongodb_data:
+  # mongodb_data:
+  postgres_data:
 
 networks:
   default:

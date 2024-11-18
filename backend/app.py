@@ -3,16 +3,22 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
 
-from flask_pymongo import PyMongo
-from repositories.mongo_repository import MongoRepository
+# from flask_pymongo import PyMongo
+# from repositories.mongo_repository import MongoRepository
+
+from repositories.postgres_repository import PostgresRepository
 
 app = Flask(__name__)
 CORS(app)
 
 # MongoDB
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-mongo = PyMongo(app)
-repo = MongoRepository(mongo)
+# app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+# mongo = PyMongo(app)
+# repo = MongoRepository(mongo)
+
+# Postgres
+db_url = os.environ.get("POSTGRES_URL")
+repo = PostgresRepository(db_url)
 
 
 @app.route("/api/todos", methods=["GET"])

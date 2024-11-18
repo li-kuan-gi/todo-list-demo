@@ -10,6 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # 複製源碼
 COPY app.py .
+COPY repositories .
+COPY wait-for-it.sh .
 
 # 暴露端口
 EXPOSE 5000
