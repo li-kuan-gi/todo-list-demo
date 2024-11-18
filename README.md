@@ -1,6 +1,6 @@
 # Todo List 應用程式
 
-一個使用 Flask (後端)、React (前端)、MongoDB (資料庫) 構建的全端待辦事項應用程式，並使用 Docker 進行容器化部署api。
+一個使用 Flask (後端)、React (前端)、MongoDB 或 PostgreSQL (資料庫) 構建的全端待辦事項應用程式，並使用 Docker 進行容器化部署api。
 
 ## 功能特點
 
@@ -22,6 +22,7 @@
 
 ### 資料庫
 - MongoDB
+- PostgreSQL
 
 ### 部署
 - Docker
@@ -57,6 +58,7 @@ npm start
 - 前端: http://localhost:3000
 - 後端 API: http://localhost:5000
 - MongoDB: localhost:27017
+- PostgreSQL: localhost:5432
 
 ## API 端點
 
